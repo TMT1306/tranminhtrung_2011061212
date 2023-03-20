@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNet.Identity;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -15,6 +16,7 @@ namespace tranminhtrung_2011061212.Controllers
         {
             _context = new ApplicationDbContext();
         }
+        [Authorize]
         public ActionResult Create()
         {
             var viewModel = new CourseViewModel()
@@ -23,6 +25,28 @@ namespace tranminhtrung_2011061212.Controllers
             };
 
             return View(viewModel);
+        }
+
+        [Authorize]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Create(CourseViewModel viewModel)
+        {
+            if(!ModelState.IsValid) {
+            
+                viewModel.Categories = _context.Categories.ToList();
+                return View("Create", viewModel);
+            }
+            var courses = new Course()
+            {
+                LecturerId = User.Identity.GetUserId(),
+                DateTime = viewModel.GetDateTime(),
+                CategoryId = viewModel.Category,
+                Place = viewModel.Place,
+            };
+            _context.Courses.Add(courses);
+            _context.SaveChanges();
+            return RedirectToAction("Index", "Home");
         }
         // GET: Courses
         public ActionResult Index()
