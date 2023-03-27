@@ -1,44 +1,45 @@
 ﻿@*@model IEnumerable<tranminhtrung_2011061212.Models.Course>*@
 @model tranminhtrung_2011061212.ViewModels.CourseViewModel
 @{
-    ViewBag.Title = "Home Page";
+    ViewBag.Title = "Attending";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
+<h2>Attending</h2>
 <div class="row">
     <ul class="course">
-        @foreach(var course in Model.UpcommingCoueses)
-            {
-               <li>
-                   <div class="date">
-                       <div class="month">
-                           @course.DateTime.ToString("MM")
-                       </div>
-                       <div class="day">
-                           @course.DateTime.ToString("dd")
-                       </div>
-                   </div>
-                   <div class="details">
-                       <span class="lecturer">
-                           @course.Lecturer.Name
-                           @if (Model.ShowAction)
-                           {
-                               <button class="btn btn-default btn-sm js-toggle-follow" data-user-id="@course.LecturerId">Follow</button>
-                           }
-                       </span>
-                       <span class="category">
-                           @course.Category.Name
-                       </span>
-                       @if (Model.ShowAction)
-                       {
-                           <button data-course-id="@course.Id" class="btn btn-default btn-sm js-toggle-attendance">Going?</button>
-                       }
-                   </div>
-               </li>
-            }
+        @foreach (var course in Model.UpcommingCoueses)
+        {
+            <li>
+                <div class="date">
+                    <div class="month">
+                        @course.DateTime.ToString("MM")
+                    </div>
+                    <div class="day">
+                        @course.DateTime.ToString("dd")
+                    </div>
+                </div>
+                <div class="details">
+                    <span class="lecturer">
+                        @course.Lecturer.Name
+                        @if (Model.ShowAction)
+                        {
+                            <button class="btn btn-default btn-sm js-toggle-follow" data-user-id="@course.LecturerId">Follow</button>
+                        }
+                    </span>
+                    <span class="category">
+                        @course.Category.Name
+                    </span>
+                    @if (Model.ShowAction)
+                    {
+                        <button data-course-id="@course.Id" class="btn btn-default btn-sm js-toggle-attendance">Going?</button>
+                    }
+                </div>
+            </li>
+        }
     </ul>
     @section scripts
         {
-            <script>
+        <script>
                 $(document).ready(function () {
                     $(".js-toggle-attendance").click(function (e) {
                         var button = $(e.target);
@@ -67,6 +68,6 @@
                     });
                 });
                
-            </script>
-        }
+        </script>
+    }
 </div>

@@ -8,8 +8,9 @@
         <ul class="navbar-nav navbar-right">
             <li class="dropdown">
                 <a>@User.Identity.GetUserName()<span class="caret"></span></a>
-                <a  href="#">Course I'm Going</a>
+                <a  href="@Url.Action("Attending", "Courses")">Course I'm Going</a>
                 <a href="#">Lecture I'm Flowing</a>
+                
                 <a  href="javascript:document.getElementById('logoutForm').submit()">Log off</a>
             </li>
         </ul>

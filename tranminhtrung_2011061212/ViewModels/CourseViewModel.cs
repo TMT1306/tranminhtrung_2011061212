@@ -26,5 +26,9 @@ namespace tranminhtrung_2011061212.ViewModels
         {
             return DateTime.Parse(string.Format("{0} {1}", Date, Time));
         }
+
+        public IEnumerable<Course> UpcommingCoueses { get; set; }
+        public bool ShowAction { get; set; }
+
     }
 }

@@ -19,8 +19,16 @@ namespace tranminhtrung_2011061212.Controllers
         }
         public ActionResult Index()
         {
-            var up = _context.Courses.Include(c => c.Lecturer).Include(c => c.Category).Where(c => c.DateTime > DateTime.Now);
-            return View(up);
+            var up = _context.Courses
+                .Include(c => c.Lecturer)
+                .Include(c => c.Category)
+                .Where(c => c.DateTime > DateTime.Now);
+            var viewModel = new CourseViewModel
+            {
+                UpcommingCoueses = up,
+                ShowAction = User.Identity.IsAuthenticated
+            };
+            return View(viewModel);
         }
 
         public ActionResult About()
